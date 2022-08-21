@@ -5,6 +5,7 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/material.dart';
 import 'package:space_shot/game/player.dart';
 
+//This class is responsible for initializing and running the game-loop
 class SpaceGame extends FlameGame with PanDetector{
   late Player player;
   Offset? _pointerStartPosition;
@@ -12,6 +13,8 @@ class SpaceGame extends FlameGame with PanDetector{
   final double _joyStickRadius = 60;
   final double _redZoneRadius = 10;
 
+
+  //Load player from assets and add the component to the game
   @override
   Future<void>? onLoad() async {
     await images.load('simpleSpace_tilesheet.png');
@@ -26,12 +29,15 @@ class SpaceGame extends FlameGame with PanDetector{
       newPosition: size / 2 
     );
     
+    //make sure that the the sprite(player) is centered
     player.anchor = Anchor.center;
 
     add(player);
     return super.onLoad();
   }
 
+
+  //create player control component(canvas) by rendering the screen
   @override
   void render(Canvas canvas) {
     super.render(canvas);
@@ -56,6 +62,7 @@ class SpaceGame extends FlameGame with PanDetector{
     }
   }
 
+  //detect position of the start player control component
   @override
   void onPanStart(DragStartInfo info) {
     _pointerStartPosition = _pointerStartPosition = info.eventPosition.global.toOffset();
